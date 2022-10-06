@@ -1,0 +1,14 @@
+#!/bin/sh
+case $1 in
+    pre)
+      /sbin/systemctl stop NetworkManager
+      if /sbin/lsmod | /bin/grep -q brcmfmac; then
+          /sbin/rmmod brcmfmac
+      fi
+    ;;
+    post)
+        /sbin/modprobe brcmfmac
+	/sbin/systemctl start NetworkManager
+    ;;
+esac
+exit 0

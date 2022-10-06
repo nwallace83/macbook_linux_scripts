@@ -1,0 +1,15 @@
+[Unit]
+Description=Re-enable MacBook 14,3 TouchBar
+Before=display-manager.service
+After=usbmuxd.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 2
+ExecStart=/bin/sh -c "echo '1-3' > /sys/bus/usb/drivers/usb/unbind"
+ExecStart=/bin/sh -c "echo '1-3' > /sys/bus/usb/drivers/usb/bind"
+RemainAfterExit=yes
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+#!/bin/bash
+CURRENT=$(brightnessctl -d gmux_backlight g)
+MAX=$(brightnessctl -d gmux_backlight m)
+
+case $1 in
+    "INC")
+        NEW=$(expr $CURRENT + 150)
+        if [ $NEW -gt $MAX ]
+            then NEW=$MAX
+        fi
+        brightnessctl -d gmux_backlight s $NEW
+        exit 0
+    ;;
+    "DEC")
+        NEW=$(expr $CURRENT - 150)
+        if [ $CURRENT -lt 156 ]
+            then NEW=5
+        fi
+        brightnessctl -d gmux_backlight s $NEW
+        exit 0
+    ;;
+    *)
+        echo "Invalid option"
+    ;;
+
+esac
